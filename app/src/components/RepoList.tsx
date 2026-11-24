@@ -1,6 +1,8 @@
 import { hashFromSlug } from "../hooks/useSelectedSlug";
 import { formatStars } from "../lib/format";
+import { languageColor } from "../lib/languages";
 import type { Repo } from "../types";
+import { StarIcon } from "./Icons";
 
 interface Props {
   repos: Repo[];
@@ -8,27 +10,35 @@ interface Props {
 }
 
 export function RepoList({ repos, selected }: Props) {
-  if (repos.length === 0) return <p className="p-4 text-sm text-slate-500">No repository matches.</p>;
+  if (repos.length === 0) return <p className="p-6 text-center text-muted">No repository matches your search.</p>;
   return (
-    <ul className="divide-y divide-slate-200 dark:divide-slate-800">
+    <ul>
       {repos.map((repo) => (
-        <li key={repo.slug}>
+        <li key={repo.slug} className="border-b border-line">
           <a
             href={hashFromSlug(repo.slug)}
             aria-current={repo.slug === selected ? "page" : undefined}
-            className="block px-3 py-2.5 hover:bg-slate-100 aria-[current=page]:bg-indigo-50 dark:hover:bg-slate-900 dark:aria-[current=page]:bg-indigo-950"
+            className="block border-l-2 border-transparent px-4 py-3 hover:bg-hover aria-[current=page]:border-tab aria-[current=page]:bg-accent-subtle"
           >
-            <div className="flex items-baseline justify-between gap-2">
-              <span className="truncate text-sm font-medium">{repo.repo}</span>
-              {repo.stars !== null && (
-                <span className="shrink-0 text-xs text-slate-500">★ {formatStars(repo.stars)}</span>
+            <span className="block truncate text-base font-semibold text-accent">{repo.repo}</span>
+            <span className="mt-1 line-clamp-2 block text-xs text-muted">{repo.description}</span>
+            <span className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
+              {repo.language && (
+                <span className="flex items-center gap-1">
+                  <span
+                    className="inline-block size-3 rounded-full border border-black/10"
+                    style={{ backgroundColor: languageColor(repo.language) }}
+                  />
+                  {repo.language}
+                </span>
               )}
-            </div>
-            <p className="line-clamp-2 text-xs text-slate-600 dark:text-slate-400">{repo.description}</p>
-            <p className="mt-1 text-[11px] text-slate-500">
-              {repo.category}
-              {repo.language ? ` · ${repo.language}` : ""}
-            </p>
+              {repo.stars !== null && (
+                <span className="flex items-center gap-1">
+                  <StarIcon width={14} height={14} />
+                  {formatStars(repo.stars)}
+                </span>
+              )}
+            </span>
           </a>
         </li>
       ))}

@@ -13,7 +13,7 @@ interface Props {
 
 export function Markdown({ source, repo, branch = "main" }: Props) {
   return (
-    <div className="prose prose-sm max-w-none dark:prose-invert prose-img:inline prose-img:my-1">
+    <div className="markdown-body">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSanitize]}

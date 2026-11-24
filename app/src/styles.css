@@ -1,2 +1,59 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
+@import "github-markdown-css/github-markdown.css";
+
+/* Palette inspirée de GitHub (Primer), clair et sombre selon le système. */
+:root {
+  --canvas: #ffffff;
+  --subtle: #f6f8fa;
+  --inset: #f6f8fa;
+  --line: #d1d9e0;
+  --fg: #1f2328;
+  --muted: #59636e;
+  --accent: #0969da;
+  --accent-subtle: #ddf4ff;
+  --header: #f6f8fa;
+  --tab: #fd8c73;
+  --hover: #818b981a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: #0d1117;
+    --subtle: #151b23;
+    --inset: #010409;
+    --line: #3d444d;
+    --fg: #f0f6fc;
+    --muted: #9198a1;
+    --accent: #4493f8;
+    --accent-subtle: #388bfd1a;
+    --header: #151b23;
+    --tab: #f78166;
+    --hover: #656c7633;
+  }
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-subtle: var(--subtle);
+  --color-inset: var(--inset);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-header: var(--header);
+  --color-tab: var(--tab);
+  --color-hover: var(--hover);
+}
+
+body {
+  background: var(--canvas);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.markdown-body {
+  background: transparent;
+}
